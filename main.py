@@ -169,8 +169,9 @@ def recomendacion_juego(id_juego: int):
     sim_juegos = muestra['title'].iloc[sim_ind].values.tolist()
     return {'juegos recomendados': list(sim_juegos)}
 
+
 @app.get('/recomendacion_usuario1/{id_usuario}', response_model=List[str])
-def recomendacion_usuario(id_usuario: int):
+def recomendacion_usuario1(id_usuario: int):
     juegos_recomendados = set()  # Utilizamos un conjunto para evitar juegos duplicados
     
     # Obtener los juegos recomendados para el usuario
