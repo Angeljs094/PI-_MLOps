@@ -168,3 +168,18 @@ def recomendacion_juego(id_juego: int):
     sim_ind = [i for i, _ in sim_scores[1:6]]
     sim_juegos = muestra['title'].iloc[sim_ind].values.tolist()
     return {'juegos recomendados': list(sim_juegos)}
+
+@app.get('/recomendacion_usuario/{id_usuario}', response_model=List[str])
+def recomendacion_usuario(id_usuario: int):
+    juegos_recomendados = set()  # Utilizamos un conjunto para evitar juegos duplicados
+    
+    # Obtener los juegos recomendados para el usuario
+    for idx, row in muestra.iterrows():
+        if row['id'] == id_usuario:
+            sim_cosine = list(enumerate(cosine_similarity[idx]))
+            sim_scores = sorted(sim_cosine, key=lambda x: x[1], reverse=True)
+            sim_ind = [i for i, _ in sim_scores[1:6]]
+            sim_juegos = muestra['title'].iloc[sim_ind].values.tolist()
+            juegos_recomendados.update(sim_juegos)  # Agregar los juegos recomendados al conjunto
+    
+    return list(juegos_recomendados)
