@@ -127,25 +127,20 @@ def developer_reviews_analysis(desarrollador: str) -> dict:
 
     return result
 
-muestra = df.sample(n=6000, random_state=42)
+muestra = df.head(4000)
 tfidf = TfidfVectorizer(stop_words='english')
 muestra=muestra.fillna("")
 
 tdfid_matrix = tfidf.fit_transform(muestra['review'])
 cosine_similarity = linear_kernel( tdfid_matrix, tdfid_matrix)
 
-@app.get('/recomendacion_juego/{id_producto}')
+@app.get('/recomendacion_id/{id_producto}')
 def recomendacion(id_producto: int):
     if id_producto not in muestra['steam_id'].values:
         return {'mensaje': 'No existe el id del juego.'}
     
     # Obtener géneros del juego con el id_producto
-    generos = muestra.columns['Action', 'Adventure',
-       'Audio Production', 'Casual', 'Design &amp; Illustration',
-       'Early Access', 'Education', 'Free to Play', 'Indie', 'Animation &amp; Modeling',
-       'Massively Multiplayer', 'Photo Editing', 'RPG', 'Racing', 'Simulation',
-       'Software Training', 'Sports', 'Strategy', 'Utilities',
-       'Video Production', 'Web Publishing'] # Obtener los nombres de las columnas de género
+    generos = muestra.columns[2:17]  # Obtener los nombres de las columnas de género
     
     # Filtrar el dataframe para incluir juegos con géneros coincidentes pero con títulos diferentes
     filtered_df = muestra[(muestra[generos] == 1).any(axis=1) & (muestra['steam_id'] != id_producto)]
