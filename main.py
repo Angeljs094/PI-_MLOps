@@ -127,7 +127,7 @@ def developer_reviews_analysis(desarrollador: str) -> dict:
 
     return result
 
-muestra = df.head(4000)
+muestra = df.head(7000)
 tfidf = TfidfVectorizer(stop_words='english')
 muestra=muestra.fillna("")
 
@@ -140,7 +140,7 @@ def recomendacion(id_producto: int):
         return {'mensaje': 'No existe el id del juego.'}
     
     # Obtener géneros del juego con el id_producto
-    generos = muestra.columns[2:17]  # Obtener los nombres de las columnas de género
+    generos = muestra.columns[4:19]  # Obtener los nombres de las columnas de género
     
     # Filtrar el dataframe para incluir juegos con géneros coincidentes pero con títulos diferentes
     filtered_df = muestra[(muestra[generos] == 1).any(axis=1) & (muestra['steam_id'] != id_producto)]
