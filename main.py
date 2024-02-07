@@ -127,7 +127,7 @@ def developer_reviews_analysis(desarrollador: str) -> dict:
 
     return result
 
-muestra = df.head(5000)
+muestra = df.head(4000)
 tfidf = TfidfVectorizer(stop_words='english')
 muestra=muestra.fillna("")
 
