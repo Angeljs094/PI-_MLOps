@@ -1,6 +1,6 @@
 # Machine Learning Operations (MLOps)
 ## Sistema de Recomendación de Videojuegos usando Machine Learning
-[![imagen](imagen "imagen")](https://user-images.githubusercontent.com/67664604/217914153-1eb00e25-ac08-4dfa-aaf8-53c09038f082.png "imagen")
+
 
 ### Introducción
 Este proyecto consiste en un sistema de recomendación de videojuegos utilizando técnicas de aprendizaje automático. El sistema está desarrollado en Python con el framework FastAPI y utiliza un conjunto de datos de la plataforma Steam. Los usuarios pueden obtener recomendaciones personalizadas basadas en diferentes criterios.
@@ -57,4 +57,4 @@ El proyecto está estructurado de la siguiente manera:
 ### **Demostración en Render y YouTube**
 
 El proyecto está desplegado en [**ML-OPS**](https://ml-ops-angel-jaramillo.onrender.com/docs "Render")
-Puedes ver una demostración en [**VIDEO**](https://www.youtube.com/watch?v=Rw887TSEQz0 "Video")  en  YouTube
+Puedes ver una demostración en [**VIDEO**](https://youtu.be/VZKvrubru_8 "Video")  en  YouTube 
