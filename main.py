@@ -127,12 +127,13 @@ def developer_reviews_analysis(desarrollador: str) -> dict:
 
     return result
 
-muestra = df.head(7000)
+muestra = df.head(5000)
 tfidf = TfidfVectorizer(stop_words='english')
 muestra=muestra.fillna("")
 
 tdfid_matrix = tfidf.fit_transform(muestra['review'])
 cosine_similarity = linear_kernel( tdfid_matrix, tdfid_matrix)
+
 
 @app.get('/recomendacion_id/{id_producto}')
 def recomendacion(id_producto: int):
@@ -155,23 +156,11 @@ def recomendacion(id_producto: int):
     sim_ind = [i for i, _ in sim_scores[1:6]]
     sim_juegos = filtered_df['title'].iloc[sim_ind].values.tolist()
     
-    return {'juegos recomendados': list(sim_juegos)}
-
-@app.get('/recomendacion_juego/{id_juego}')
-def recomendacion_juego(id_juego: int):
-    if id_juego not in muestra['id'].values:
-        return {'mensaje': 'No existe el id del juego.'}
-    titulo = muestra.loc[muestra['id'] == id_juego, 'title'].iloc[0]
-    idx = muestra[muestra['title'] == titulo].index[0]
-    sim_cosine = list(enumerate(cosine_similarity[idx]))
-    sim_scores = sorted(sim_cosine, key=lambda x: x[1], reverse=True)
-    sim_ind = [i for i, _ in sim_scores[1:6]]
-    sim_juegos = muestra['title'].iloc[sim_ind].values.tolist()
-    return {'juegos recomendados': list(sim_juegos)}
+    return list(set(sim_juegos))
 
 
-@app.get('/recomendacion_usuario1/{id_usuario}', response_model=List[str])
-def recomendacion_usuario1(id_usuario: int):
+@app.get('/recomendacion_usuario/{id_usuario}')
+def recomendacion_usuario(id_usuario: int):
     juegos_recomendados = set()  # Utilizamos un conjunto para evitar juegos duplicados
     
     # Obtener los juegos recomendados para el usuario
